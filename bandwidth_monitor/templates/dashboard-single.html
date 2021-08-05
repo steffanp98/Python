@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>single dashboard</title>
+        <meta name="description" content="A single dashboard to show the data from any connection to the network">
+        <meta name="Author" content="Steffan Phillips">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <!-- importing fa-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- importing datatables from bootstrap-->
+        <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/sb-admin.css') }}" rel="stylesheet">
+    </head>
+    <!--Main body of the dashboard-->
+    <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+       <!--navigation-->
+       <!--Expanded nav-->
+        <nav class="navbar nav-expand-lg navbar-dark bd-dark fixed-top" id="mainNav">
+            <a class="navbar-brand" href="index.html"> Start</a>
+            <!-- Expand/collapse button-->
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-Responsive" aria-controls="navbarResposive"aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-item"></span>
+            </button>
+            <!-- Collapsed nav-->
+            <div class="navbar nav-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="accordian">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="fa fa-fw fa-dashboard"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>  
+        <!--Content-->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!--breadcrums-->
+                <ol class="breadcrum">
+                    <li class="breadcrum-item">
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li class="breadcrum-item active"> My Session</li>
+                </ol>
+                <!-- Datatable card-->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-table"></i>User Sessions
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="userSessions" width="100%" cellspacing = "0">
+                                <thread>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Page</th>
+                                        <th>Session_id</th>
+                                        <th>No of Visits</th>
+                                        <th</th>
+                                    </tr>
+                                </thread>
+                                <tfoot>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Page</th>
+                                        <th>Session_id</th>
+                                        <th>No of Visits</th>
+                                        <th</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="user-table">
+                                    {% for row in data%}
+                                        <tr>
+                                            <td>[{row.first_visited}]</td>
+                                            <td>[{row.name}]</td>
+                                            <td>[{row.session}]</td>
+                                            <td>{{row.visits}}</td>
+                                        </tr>
+                                    {% endfor %}    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer small text-muted"> Updated @ <span id="session-update-time"></span></div>
+                </div>
+            </div>
+            <!--container fluid-->
+            <!--content wrapper-->
+            <footer class="sticky-footer">
+                <div class="container">
+                    <div class="text-center">
+                        <small> copyright</small>
+                    </div>
+                </div>
+            </footer>
+            <!-- scroll to top -->
+            <a class="scroll-to-top-rounded" href="#page-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+            <!--logout-->
+            <div class="modal fade" id="exampleModle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">Are You Sure You Want To Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"> Select "logout" to end session</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.html"></a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <!-- JS Bootstrap-->
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+            <!-- Page level plugin JavaScript-->
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+            <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+            <!-- Custom scripts for this page-->
+            <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/sb-admin.js') }}"></script>
+        </div>
+    </body>
+</html>
